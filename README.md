@@ -149,17 +149,6 @@ When you are logged in as admin, you unlock a few extra options:
 
 ---
 
-### Demo / screenshots
-
-You can add a terminal screenshot or GIF of the app in action here.
-For example, if you place an image at `docs/demo.png` in this repository, this line will show it on GitHub:
-
-```markdown
-![Parking Management System Demo](docs/demo.png)
-```
-
----
-
 ### Notes & limitations
 
 - **Data is not persisted** – everything lives in memory only. Once you close the program, vehicles, spots, history, and revenue are reset.
@@ -187,7 +176,7 @@ This project is licensed under the **MIT License** – see the [`LICENSE`](./LIC
 
 ### Author
 
-**Developed by [Mazen AL Hajjaji](https://github.com/Mazen-AL-Hajjaji)**  
+**Developed by [Mazen Al Hajjaji](https://github.com/Mazen-AL-Hajjaji)**  
 
 GitHub: [`@Mazen-AL-Hajjaji`](https://github.com/Mazen-AL-Hajjaji)
 
