@@ -4,78 +4,79 @@
 
 ### Overview
 
-The **Parking Management System (CLI)** is a Python-based console application for managing a simple parking lot.  
-It allows you to register vehicles, assign them to parking spots, track entry and exit times, and calculate parking fees, all from a clean text-based interface.  
-An admin mode enables privileged operations such as creating spots, changing pricing, viewing total revenue, and safely shutting down the system.
+The **Parking Management System (CLI)** is a small Python console app that helps you manage a simple parking lot from your terminal.  
+You can register vehicles, assign them to parking spots, track when they enter and exit, and automatically calculate how much each driver should pay – all from a clean text-based interface.  
+There’s also an admin mode for the more sensitive actions, like creating spots, changing the hourly price, checking total revenue, and shutting the system down safely.
 
-> This project is ideal for learning object-oriented design, console I/O, and basic state management in Python.
+> This project is ideal for practicing object-oriented design, console I/O, and basic state management in Python.
 
 ---
 
 ### Features
 
-- **Vehicle Management**
+- **Vehicle management**
   - Register vehicles with plate number and type (car, motorcycle, truck, bus).
-  - Search vehicles by plate number.
-  - View current status (parked / not parked) and full parking history.
+  - Look up vehicles by plate number.
+  - See whether a vehicle is currently parked and view its full parking history.
 
-- **Parking Management**
-  - Create parking spots (admin-only).
-  - Automatically assign the first available spot.
-  - Park and exit vehicles using their plate numbers.
-  - List all vehicles and all parking spots with live status.
+- **Parking management**
+  - Create parking spots (admin only).
+  - Automatically assign the first free spot when parking a vehicle.
+  - Exit vehicles and free their spots using only the plate number.
+  - List all vehicles and all spots with their current status.
 
-- **Pricing & Revenue**
-  - Configurable **price per hour** (admin-only).
-  - Automatic fee calculation based on time parked.
-  - Track **total revenue** for the current session.
+- **Pricing & revenue**
+  - Configurable **price per hour** (admin only).
+  - Fee is calculated based on the time between entry and exit.
+  - Total revenue for the current run of the program is tracked.
 
-- **Admin Mode**
-  - Password-protected admin login (`admin123` by default).
-  - Change admin password.
-  - Admin-only operations: create spots, change pricing, view revenue, controlled shutdown.
+- **Admin mode**
+  - Password-protected login (`admin123` by default).
+  - Change admin password from inside the app.
+  - Admin-only actions: create spots, change price, view revenue, shut down.
 
-- **Safe Shutdown**
-  - Only admin can shut down the system.
-  - If vehicles are still parked, admin can:
-    1. Exit all vehicles normally (show each fee + total, then shut down).
-    2. Force shutdown and keep vehicles marked as parked.
-    3. Mark all vehicles as exited silently and only show totals.
+- **Safe shutdown**
+  - Only admin is allowed to shut the system down.
+  - If vehicles are still parked, the admin can:
+    - Exit all vehicles one by one and see each fee.
+    - Shut down anyway and leave vehicles as “still parked”.
+    - Mark all vehicles as exited in one go and only show totals.
 
 ---
 
-### Folder Structure
+### Folder structure
+
+This is how the repository is organized on GitHub:
 
 ```text
-parking_management_system/
-└── parking_system/
-    ├── parking_system.py   # Main CLI application (core logic & menu)
-    └── README.md           # Project documentation
+parking-management-cli/
+├── parking_management_system.py   # Main CLI application (logic + menu)
+├── README.md                      # Project documentation
+├── LICENSE                        # MIT license
+└── .gitignore                     # Git ignore rules
 ```
 
 ---
 
 ### Requirements
 
-- **Python**: 3.8 or higher (recommended)
+- **Python** 3.8 or higher (recommended)
 
-Standard library only – no external dependencies are required:
+The app only uses the Python standard library:
 
-- `datetime` – for time and duration calculations.
-- `getpass` – for secure admin password input (hidden typing where supported).
+- `datetime` for time and duration calculations.
+- `getpass` for password input where the characters are not shown.
 
 ---
 
-### Installation & Running
+### Installation & running
 
-1. **Clone or download** the project:
+1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/parking-management-cli.git
-   cd parking_management_system/parking_system
+   git clone https://github.com/Mazen-AL-Hajjaji/parking-management-cli.git
+   cd parking-management-cli
    ```
-
-   > Replace `your-username` and the path above with your actual repository or folder path.
 
 2. **(Optional) Create and activate a virtual environment**:
 
@@ -88,14 +89,16 @@ Standard library only – no external dependencies are required:
 3. **Run the application**:
 
    ```bash
-   python parking_system.py
+   python parking_management_system.py
    ```
+
+You should now see the text menu in your terminal.
 
 ---
 
-### Usage Example
+### Usage example
 
-Once you run the script, you will see a main menu similar to:
+When you start the program, you’ll be greeted with a menu similar to this:
 
 ```text
 === Parking System Menu ===
@@ -115,101 +118,64 @@ q : Admin logout       (if logged in)
 9 : Create parking spots    (admin only)
 ```
 
-#### Typical Workflow
+A typical flow might look like this:
 
-```text
-1. (Admin) Log in:
-   - Choose "a" and enter the admin password (default: admin123).
-
-2. (Admin) Create parking spots:
-   - Choose "9" and enter how many spots you want (e.g. 10).
-
-3. Register a vehicle:
-   - Choose "1", enter the plate number, and select the vehicle type.
-
-4. Park the vehicle:
-   - Choose "2", enter the vehicle plate, and the system assigns a free spot.
-
-5. Exit the vehicle:
-   - Choose "3", enter the plate again, and the system calculates & displays the fee.
-```
+1. Log in as admin (`a`) and enter the password (`admin123` by default).
+2. Create some spots (`9`) so cars have somewhere to park.
+3. Register a vehicle (`1`) with its plate number and type.
+4. Park the vehicle (`2`) by entering its plate; the app picks a free spot.
+5. Later, exit the vehicle (`3`) and see the calculated fee.
 
 ---
 
-### Admin Options
+### Admin options
 
-When logged in as **admin**, you gain access to several protected features:
+When you are logged in as admin, you unlock a few extra options:
 
-- **Admin Login (`a`)**
-  - Authenticate with a password (default: `admin123`).
-  - Up to 3 attempts; you can also skip and continue as a normal user.
+- **Login / logout**
+  - `a` – Log in as admin (3 attempts, or press Enter to skip).
+  - `q` – Log out and return to normal user mode.
 
-- **Change Admin Password (`6`)**
-  - Requires current password.
-  - Enforces a minimal length and confirmation.
+- **Security**
+  - `6` – Change the admin password (asks for current password and confirmation).
 
-- **View Total Revenue (`7`)**
-  - Displays all fees collected for the current program run.
+- **Money & pricing**
+  - `7` – Show the total revenue collected so far in this session.
+  - `8` – Change the price per hour for new parking sessions.
 
-- **Change Price per Hour (`8`)**
-  - Update the hourly parking rate (affects new exits).
-
-- **Create Parking Spots (`9`)**
-  - Add new spots with auto-generated `S1`, `S2`, ... IDs.
-
-- **Controlled Shutdown (`0`)**
-  - Only available to admin.
-  - If vehicles are parked, choose how to handle them:
-    - Exit them one by one using normal logic (show each fee).
-    - Force shutdown without exiting them.
-    - Mark all as exited silently and show summary totals.
+- **Parking spots & shutdown**
+  - `9` – Create new parking spots (they are given IDs like `S1`, `S2`, ...).
+  - `0` – Shut down the system, with special handling if vehicles are still parked.
 
 ---
 
-### Demo / Screenshots
+### Demo / screenshots
 
-> _Placeholder_: Add a screenshot or GIF of your terminal running the app here.
+You can add a terminal screenshot or GIF of the app in action here.
+For example, if you place an image at `docs/demo.png` in this repository, this line will show it on GitHub:
 
 ```markdown
 ![Parking Management System Demo](docs/demo.png)
 ```
 
-You can capture a screenshot of the menu and basic workflow, save it under `docs/demo.png`, and the image above will display on GitHub.
+---
+
+### Notes & limitations
+
+- **Data is not persisted** – everything lives in memory only. Once you close the program, vehicles, spots, history, and revenue are reset.
+- **Single lot only** – the current design manages one parking lot with a single price per hour.
+- **Simple security** – the admin password is stored in plain text and is meant for demos and learning, not production use.
 
 ---
 
-### Notes & Limitations
+### Future improvements
 
-- **In-memory data only**
-  - All data (vehicles, spots, history, revenue, admin password changes) lives only while the program is running.
-  - Closing the application clears all data.
+Some ideas for taking this project further:
 
-- **Single parking lot**
-  - The current design manages one parking lot with a single price-per-hour setting.
-
-- **Security**
-  - Admin password is stored as plain text in memory.
-  - Suitable for learning and demos, but not for production use.
-
----
-
-### Future Improvements
-
-- **Persistent Storage**
-  - Save vehicles, spots, history, and revenue to **JSON**, **CSV**, or **SQLite** so data survives restarts.
-
-- **Better Security**
-  - Hash & salt admin passwords.
-  - Add different admin/user roles with separate capabilities.
-
-- **Richer Interface**
-  - Add a **GUI** using Tkinter or PyQt.
-  - Build a **web interface** using Flask or FastAPI.
-
-- **Advanced Features**
-  - Support multiple lots or zones with different pricing.
-  - Add reservations, discount codes, or monthly subscriptions.
-  - Export daily reports (e.g., to CSV).
+- **Persist data** to JSON, CSV, or a database (e.g. SQLite) so information survives restarts.
+- **Improve security** by hashing/salting passwords and adding richer roles.
+- **Build a nicer interface**, either with a desktop GUI (Tkinter / PyQt) or a small web app (Flask / FastAPI).
+- **Add advanced parking features** such as multiple zones with different prices, reservations, discounts, or daily PDF/CSV reports.
 
 ---
 
@@ -225,6 +191,5 @@ This project is licensed under the **MIT License** – see the [`LICENSE`](./LIC
 
 GitHub: [`@Mazen-AL-Hajjaji`](https://github.com/Mazen-AL-Hajjaji)
 
-If you find this project useful, feel free to ⭐ star the repository or fork it for your own experiments and improvements.
-
+If you find this project helpful, feel free to ⭐ star the repository or fork it and build your own version.
 
